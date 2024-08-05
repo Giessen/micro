@@ -178,7 +178,10 @@ func (i *InfoWindow) displayBuffer() {
 	}
 }
 
-var keydisplay = []string{"^Q Quit, ^S Save, ^O Open, ^G Help, ^E Command Bar, ^K Cut Line", "^F Find, ^Z Undo, ^Y Redo, ^A Select All, ^D Duplicate Line, ^T New Tab"}
+//var keydisplay = []string{"^Q Quit, ^S Save, ^O Open, ^G Help, ^E Command Bar, ^K Cut Line", "^F Find, ^Z Undo, ^Y Redo, ^A Select All, ^D Duplicate Line, ^T New Tab"}
+//@ ^D Duplicate Line
+var keydisplay = []string{"^X Quit, ^S Save, ^O Open, ^T New Tab,  F5/6 CMD/SH, ^K/C|J Cut/Copy, ^G/D Goto/Del Line",
+                          "^F Find, ^Z Undo, ^Y Redo, ^A Mark All, ^/ Comment,  ^V|U Paste,      ^I Find Text"}
 
 func (i *InfoWindow) displayKeyMenu() {
 	// TODO: maybe make this based on the actual keybindings
