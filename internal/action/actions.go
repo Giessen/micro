@@ -1469,13 +1469,21 @@ func (h *BufPane) paste(clip string) {
 
 // JumpToMatchingBrace moves the cursor to the matching brace if it is
 // currently on a brace
+//@ fixed matching brace not accurate
 func (h *BufPane) JumpToMatchingBrace() bool {
 	matchingBrace, left, found := h.Buf.FindMatchingBrace(h.Cursor.Loc)
 	if found {
-		if left {
-			h.Cursor.GotoLoc(matchingBrace)
+//		if left {
+//			h.Cursor.GotoLoc(matchingBrace)
+    if h.Buf.Settings["matchbraceleft"].(bool) {
+			if left {
+				h.Cursor.GotoLoc(matchingBrace)
+			} else {
+				h.Cursor.GotoLoc(matchingBrace.Move(1, h.Buf))
+			}
 		} else {
-			h.Cursor.GotoLoc(matchingBrace.Move(1, h.Buf))
+//			h.Cursor.GotoLoc(matchingBrace.Move(1, h.Buf))
+      h.Cursor.GotoLoc(matchingBrace)
 		}
 		h.Relocate()
 		return true
