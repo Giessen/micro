@@ -1316,6 +1316,7 @@ func (h *BufPane) CutLine() bool {
 	return true
 }
 
+//@ added
 // CutLineAppend cuts the current line to the clipboard. If there is a selection,
 // CutLineAppend cuts all the lines that are (fully or partially) in the selection.
 // CutLineAppend will append the selection to the clipboard's buffer.
