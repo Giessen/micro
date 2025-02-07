@@ -1238,32 +1238,6 @@ func (h *BufPane) Redo() bool {
 	return true
 }
 
-func (h *BufPane) selectLines() int {
-	if h.Cursor.HasSelection() {
-		start := h.Cursor.CurSelection[0]
-		end := h.Cursor.CurSelection[1]
-		if start.GreaterThan(end) {
-			start, end = end, start
-		}
-		if end.X == 0 {
-			end = end.Move(-1, h.Buf)
-		}
-
-		h.Cursor.Deselect(true)
-		h.Cursor.SetSelectionStart(buffer.Loc{0, start.Y})
-		h.Cursor.SetSelectionEnd(buffer.Loc{0, end.Y + 1})
-	} else {
-		h.Cursor.SelectLine()
-	}
-
-	nlines := h.Cursor.CurSelection[1].Y - h.Cursor.CurSelection[0].Y
-	if nlines == 0 && h.Cursor.HasSelection() {
-		// selected last line and it is not empty
-		nlines++
-	}
-	return nlines
-}
-
 // Copy the selection to the system clipboard
 func (h *BufPane) Copy() bool {
 	if h.Cursor.HasSelection() {
@@ -1292,62 +1266,28 @@ func (h *BufPane) CopyLine() bool {
 	return true
 }
 
-// CutLine cuts the current line to the clipboard. If there is a selection,
-// CutLine cuts all the lines that are (fully or partially) in the selection.
-// CutLine will replace the clipboard's current buffer.
+// CutLine cuts the current line to the clipboard
 func (h *BufPane) CutLine() bool {
-	totalLines := h.selectLines()
-	if totalLines == 0 {
+	h.Cursor.SelectLine()
+	if !h.Cursor.HasSelection() {
 		return false
 	}
-
-	h.Cursor.CopySelection(clipboard.ClipboardReg)
-	h.freshClip = true
-	h.Cursor.DeleteSelection()
-	h.Cursor.ResetSelection()
-	h.Cursor.StoreVisualX()
-	if totalLines > 1 {
-		InfoBar.Message(fmt.Sprintf("Cut %d lines", totalLines))
-	} else {
-		InfoBar.Message("Cut line")
-	}
-
-	h.Relocate()
-	return true
-}
-
-// CutLineAppend cuts the current line to the clipboard. If there is a selection,
-// CutLineAppend cuts all the lines that are (fully or partially) in the selection.
-// CutLineAppend will append the selection to the clipboard's buffer.
-func (h *BufPane) CutLineAppend() bool {
-	nlines := h.selectLines()
-	if nlines == 0 {
-		return false
-	}
-
-	totalLines := nlines
 	if h.freshClip {
-		if clip, err := clipboard.Read(clipboard.ClipboardReg); err != nil {
-			InfoBar.Error(err)
-			return false
-		} else {
-			clipboard.WriteMulti(clip+string(h.Cursor.GetSelection()), clipboard.ClipboardReg, h.Cursor.Num, h.Buf.NumCursors())
-			totalLines = strings.Count(clip, "\n") + nlines
+		if h.Cursor.HasSelection() {
+			if clip, err := clipboard.Read(clipboard.ClipboardReg); err != nil {
+				InfoBar.Error(err)
+			} else {
+				clipboard.WriteMulti(clip+string(h.Cursor.GetSelection()), clipboard.ClipboardReg, h.Cursor.Num, h.Buf.NumCursors())
+			}
 		}
-	} else {
-		h.Cursor.CopySelection(clipboard.ClipboardReg)
+	} else if time.Since(h.lastCutTime)/time.Second > 10*time.Second || !h.freshClip {
+		h.Copy()
 	}
-
 	h.freshClip = true
+	h.lastCutTime = time.Now()
 	h.Cursor.DeleteSelection()
 	h.Cursor.ResetSelection()
-	h.Cursor.StoreVisualX()
-	if nlines > 1 {
-		InfoBar.Message(fmt.Sprintf("Cut %d lines. Total lines in buffer: %d.", nlines, totalLines))
-	} else {
-		InfoBar.Message(fmt.Sprintf("Cut line. Total lines in buffer: %d.", totalLines))
-	}
-
+	InfoBar.Message("Cut line")
 	h.Relocate()
 	return true
 }
