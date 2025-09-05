@@ -1715,10 +1715,22 @@ func (h *BufPane) ToggleHelp() bool {
 	return true
 }
 
+
+
 // ToggleKeyMenu toggles the keymenu option and resizes all tabs
 func (h *BufPane) ToggleKeyMenu() bool {
 	config.GlobalSettings["keymenu"] = !config.GetGlobalOption("keymenu").(bool)
 	Tabs.Resize()
+
+  //@ added. show abs path at infobar
+  // Get the absolute path of the current buffer
+  absPath := h.Buf.AbsPath
+  if absPath == "" {
+      absPath = "[No file]"
+  }
+  // Show it in the status bar
+  InfoBar.Message(absPath)
+  
 	return true
 }
 
