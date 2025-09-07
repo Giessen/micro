@@ -182,7 +182,7 @@ func (i *InfoWindow) displayBuffer() {
 //@ ^D Del Line
 var keydisplay = []string{"^X Quit, ^S Save, ^O Open, ^T New Tab,      F5/6 CMD/SH, ^G/D Goto/Del Line, ^K/C|J Cut/Copy",
                           "^F Find, ^Z Undo, ^Y Redo, ^E(A) Mark(All), ^/ Comment,  ^I Find Text,       ^V|U Paste",
-                          "ESC Exit key/help menus; Exit mark selection; Show path"}
+                          "ESC Exit key/help menus; Exit termpane; Exit mark selection; Show full path"}
 
 func (i *InfoWindow) displayKeyMenu() {
 	// TODO: maybe make this based on the actual keybindings
