@@ -181,7 +181,7 @@ func (i *InfoWindow) displayBuffer() {
 //var keydisplay = []string{"^Q Quit, ^S Save, ^O Open, ^G Help, ^E Command Bar, ^K Cut Line", "^F Find, ^Z Undo, ^Y Redo, ^A Select All, ^D Duplicate Line, ^T New Tab"}
 //@ ^D Del Line
 var keydisplay = []string{"^X Quit, ^S Save, ^O Open, ^T New Tab,      F5/6 CMD/SH, ^G/D Goto/Del Line, ^K/C|J Cut/Copy",
-                          "^F Find, ^Z Undo, ^Y Redo, ^E(A) Mark(All), ^/ Comment,  ^I Find Text,       ^V|U Paste",
+                          "^F Find, ^Z Undo, ^Y Redo, ^W(A) Mark(All), ^/ Comment,  ^I Find Text,       ^V|U Paste",
                           "ESC Exit key/help menus; Exit termpane; Exit mark selection; Show full path"}
 
 func (i *InfoWindow) displayKeyMenu() {
