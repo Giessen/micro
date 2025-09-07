@@ -64,6 +64,8 @@ func InitCommands() {
 		"retab":      {(*BufPane).RetabCmd, nil},
 		"raw":        {(*BufPane).RawCmd, nil},
 		"textfilter": {(*BufPane).TextFilterCmd, nil},
+		"togglekeymenucli": {(*BufPane).ToggleKeyMenuCmd, nil}, //@ added
+		"togglehelpcli": {(*BufPane).ToggleHelpCmd, nil}, //@ added
 	}
 }
 
@@ -155,6 +157,16 @@ func (h *BufPane) TextFilterCmd(args []string) {
 	}
 	h.Cursor.DeleteSelection()
 	h.Buf.Insert(h.Cursor.Loc, bout.String())
+}
+
+//@ added. ToggleKeyMenuCmd
+func (h *BufPane) ToggleKeyMenuCmd(args []string) {
+	h.ToggleKeyMenu()
+}
+
+//@ added. ToggleHelpCmd
+func (h *BufPane) ToggleHelpCmd(args []string) {
+	h.ToggleHelp()
 }
 
 // TabMoveCmd moves the current tab to a given index (starts at 1). The
