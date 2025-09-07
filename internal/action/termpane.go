@@ -143,7 +143,7 @@ func (t *TermPane) HandleEvent(event tcell.Event) {
 
 		if t.Status == shell.TTDone {
 			switch e.Key() {
-			case tcell.KeyEscape, tcell.KeyCtrlQ, tcell.KeyEnter:
+			case tcell.KeyEscape, tcell.KeyCtrlQ, tcell.KeyCtrlX, tcell.KeyEnter: //@ added KeyCtrlX (NOTE: not working)
 				t.Close()
 				t.Quit()
 			default:

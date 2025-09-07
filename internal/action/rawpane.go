@@ -29,7 +29,7 @@ func NewRawPane(tab *Tab) *RawPane {
 func (h *RawPane) HandleEvent(event tcell.Event) {
 	switch e := event.(type) {
 	case *tcell.EventKey:
-		if e.Key() == tcell.KeyCtrlQ {
+		if e.Key() == tcell.KeyCtrlX { //@ changed KeyCtrlQ -> KeyCtrlX (NOTE: not working)
 			h.Quit()
 		}
 	}
