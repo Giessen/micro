@@ -1532,15 +1532,17 @@ func (h *BufPane) paste(clip string) {
 // currently on a brace
 //@ fixed matching brace not accurate
 func (h *BufPane) JumpToMatchingBrace() bool {
-	matchingBrace, left, found := h.Buf.FindMatchingBrace(h.Cursor.Loc)
+	matchingBrace, left, right, _, found := h.Buf.FindMatchingBrace(h.Cursor.Loc)
 	if found {
 //		if left {
 //			h.Cursor.GotoLoc(matchingBrace)
-    if h.Buf.Settings["matchbraceleft"].(bool) {
+    if h.Buf.Settings["matchbraceouter"].(bool) {
 			if left {
-				h.Cursor.GotoLoc(matchingBrace)
-			} else {
+				h.Cursor.GotoLoc(matchingBrace.Move(-1, h.Buf))
+			}	else if right {
 				h.Cursor.GotoLoc(matchingBrace.Move(1, h.Buf))
+			}	else {
+				h.Cursor.GotoLoc(matchingBrace)
 			}
 		} else {
 //			h.Cursor.GotoLoc(matchingBrace.Move(1, h.Buf))
@@ -1550,6 +1552,43 @@ func (h *BufPane) JumpToMatchingBrace() bool {
 		return true
 	}
 	return false
+}
+
+//@ added. 
+func (h *BufPane) SelectToMatchingBrace() bool {
+  matchingBrace, left, right, _, found := h.Buf.FindMatchingBrace(h.Cursor.Loc)
+  if found {
+    start := h.Cursor.Loc  // current cursor position
+    var end buffer.Loc
+    if h.Buf.Settings["matchbraceouter"].(bool) {
+      if left {
+          end = matchingBrace.Move(-1, h.Buf)
+          end = end.Move(1, h.Buf)
+      } else if right {
+          end = matchingBrace.Move(1, h.Buf)
+          start = start.Move(1, h.Buf)
+      } else {
+        end = matchingBrace
+        if start.Y < end.Y || (start.Y == end.Y && start.X < end.X) {
+          end = end.Move(1, h.Buf)
+        } else {
+              start = start.Move(1, h.Buf)
+        }
+      }
+
+      // Reset and set selection explicitly from start to end
+      h.Cursor.SetSelectionStart(start)
+      h.Cursor.SetSelectionEnd(end)
+      h.Cursor.GotoLoc(end)
+
+    } else {
+      //     h.Cursor.GotoLoc(matchingBrace.Move(1, h.Buf))
+      h.Cursor.GotoLoc(matchingBrace)
+    }
+    h.Relocate()
+    return true
+  }
+  return false
 }
 
 // SelectAll selects the entire buffer

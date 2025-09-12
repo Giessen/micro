@@ -842,6 +842,7 @@ var BufKeyActions = map[string]BufKeyAction{
 	"RemoveAllMultiCursors":     (*BufPane).RemoveAllMultiCursors,
 	"SkipMultiCursor":           (*BufPane).SkipMultiCursor,
 	"JumpToMatchingBrace":       (*BufPane).JumpToMatchingBrace,
+	"SelectToMatchingBrace":     (*BufPane).SelectToMatchingBrace,
 	"JumpLine":                  (*BufPane).JumpLine,
 	"Deselect":                  (*BufPane).Deselect,
 	"ClearInfo":                 (*BufPane).ClearInfo,
@@ -924,4 +925,5 @@ var MultiActions = map[string]bool{
 	"StartOfTextToggle":         true,
 	"EndOfLine":                 true,
 	"JumpToMatchingBrace":       true,
+	"SelectToMatchingBrace":     true,
 }

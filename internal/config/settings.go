@@ -48,7 +48,7 @@ var OptionChoices = map[string][]string{
 
 // a list of settings that can be globally and locally modified and their
 // default values
-//@ added "matchbraceleft"
+//@ added "matchbraceouter"
 var defaultCommonSettings = map[string]interface{}{
 	"autoindent":      true,
 	"autosu":          false,
@@ -72,7 +72,7 @@ var defaultCommonSettings = map[string]interface{}{
 	"indentchar":      " ",
 	"keepautoindent":  false,
 	"matchbrace":      true,
-	"matchbraceleft":  true,
+	"matchbraceouter": true,
 	"matchbracestyle": "underline",
 	"mkparents":       false,
 	"permbackup":      false,

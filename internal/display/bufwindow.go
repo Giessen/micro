@@ -396,16 +396,18 @@ func (w *BufWindow) displayBuffer() {
 			if c.HasSelection() {
 				continue
 			}
-
-			mb, left, found := b.FindMatchingBrace(c.Loc)
+      //@ added 'right'
+			mb, left, right, _, found := b.FindMatchingBrace(c.Loc)
 			if found {
 				matchingBraces = append(matchingBraces, mb)
-				if !left {
+				if left {
+					matchingBraces = append(matchingBraces, c.Loc.Move(-1, b))
+				} else if right {
+					matchingBraces = append(matchingBraces, c.Loc.Move(1, b))
+				}	else {
 					if b.Settings["matchbracestyle"].(string) != "highlight" {
 						matchingBraces = append(matchingBraces, c.Loc)
 					}
-				} else {
-					matchingBraces = append(matchingBraces, c.Loc.Move(-1, b))
 				}
 			}
 		}

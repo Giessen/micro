@@ -1189,7 +1189,7 @@ func (b *Buffer) findMatchingBrace(braceType [2]rune, start Loc, char rune) (Loc
 // or '['). The second returned value is true if there was no matching brace found
 // for given starting location but it was found for the location one character left
 // of it. The third returned value is true if the matching brace was found at all.
-func (b *Buffer) FindMatchingBrace(start Loc) (Loc, bool, bool) {
+func (b *Buffer) FindMatchingBrace(start Loc) (Loc, bool, bool, bool, bool) {
 	// TODO: maybe can be more efficient with utf8 package
 	curLine := []rune(string(b.LineBytes(start.Y)))
 
@@ -1201,7 +1201,7 @@ func (b *Buffer) FindMatchingBrace(start Loc) (Loc, bool, bool) {
 			if startChar == bp[0] || startChar == bp[1] {
 				mb, found := b.findMatchingBrace(bp, start, startChar)
 				if found {
-					return mb, false, true
+					return mb, false, false, false, true
 				}
 			}
 		}
@@ -1219,22 +1219,72 @@ func (b *Buffer) FindMatchingBrace(start Loc) (Loc, bool, bool) {
 //				if found {
 //					return mb, true, true
   //@ failed to find matching brace for the given location, so try to find matching
-	//@ brace for the location one character left of it
+	//@ LEFT brace for the location one character left of it
 	if start.X-1 >= 0 && start.X-1 < len(curLine) {
 		leftChar := curLine[start.X-1]
 		left := Loc{start.X - 1, start.Y}
 
 		for _, bp := range BracePairs {
-			if leftChar == bp[0] || leftChar == bp[1] {
+			if leftChar == bp[0] {
 				mb, found := b.findMatchingBrace(bp, left, leftChar)
 				if found {
-					return mb, true, true
+					return mb, true, false, false, true
 				}
 			}
 		}
 	}
 
-	return start, false, false
+	if start.Y-1>=0 && start.Y-1 < b.LinesNum() {
+  	prevLine := []rune(string(b.LineBytes(start.Y-1)))
+  	n := len(prevLine)
+  	if n-1 > 0 {
+    	leftChar := prevLine[n-1]
+  		left := Loc{n-1, start.Y-1}
+
+  		for _, bp := range BracePairs {
+  			if leftChar == bp[0] {
+  				mb, found := b.findMatchingBrace(bp, left, leftChar)
+  				if found {
+  					return mb, true, false, true, true //@ 3rd bool var: isExtendedLine
+  				}
+  			}
+  		}
+		}
+	}
+
+	//@ Or, try to find matching RIGHT brace for the location on the right of it
+  if start.X+1 >= 0 && start.X+1 < len(curLine) {
+  	rightChar := curLine[start.X+1]
+  	right := Loc{start.X + 1, start.Y}
+
+  	for _, bp := range BracePairs {
+  		if rightChar == bp[1] {
+  			mb, found := b.findMatchingBrace(bp, right, rightChar)
+  			if found {
+  				return mb, false, true, false, true
+  			}
+  		}
+  	}
+  }
+
+  if start.Y+1>=0 && start.Y+1 < b.LinesNum() {
+  	nextLine := []rune(string(b.LineBytes(start.Y+1)))
+  	if len(nextLine) > 0 {
+    	rightChar := nextLine[0]
+  		right := Loc{0, start.Y+1}
+
+  		for _, bp := range BracePairs {
+  			if rightChar == bp[1] {
+  				mb, found := b.findMatchingBrace(bp, right, rightChar)
+  				if found {
+  					return mb, false, true, true, true //@ 3rd bool var: isExtendedLine
+  				}
+  			}
+  		}
+  	}
+	}
+  
+	return start, false, false, false, false
 }
 
 // Retab changes all tabs to spaces or vice versa
