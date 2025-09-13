@@ -1534,8 +1534,6 @@ func (h *BufPane) paste(clip string) {
 func (h *BufPane) JumpToMatchingBrace() bool {
 	matchingBrace, left, right, _, found := h.Buf.FindMatchingBrace(h.Cursor.Loc)
 	if found {
-//		if left {
-//			h.Cursor.GotoLoc(matchingBrace)
     if h.Buf.Settings["matchbraceouter"].(bool) {
 			if left {
 				h.Cursor.GotoLoc(matchingBrace.Move(-1, h.Buf))
@@ -1545,7 +1543,6 @@ func (h *BufPane) JumpToMatchingBrace() bool {
 				h.Cursor.GotoLoc(matchingBrace)
 			}
 		} else {
-//			h.Cursor.GotoLoc(matchingBrace.Move(1, h.Buf))
       h.Cursor.GotoLoc(matchingBrace)
 		}
 		h.Relocate()
@@ -1557,6 +1554,7 @@ func (h *BufPane) JumpToMatchingBrace() bool {
 //@ added. 
 func (h *BufPane) SelectToMatchingBrace() bool {
   matchingBrace, left, right, _, found := h.Buf.FindMatchingBrace(h.Cursor.Loc)
+  isEndAtLeft := false
   if found {
     start := h.Cursor.Loc  // current cursor position
     var end buffer.Loc
@@ -1567,24 +1565,37 @@ func (h *BufPane) SelectToMatchingBrace() bool {
       } else if right {
           end = matchingBrace.Move(1, h.Buf)
           start = start.Move(1, h.Buf)
-      } else {
+          isEndAtLeft = true
+      } else { //@ prioritized
         end = matchingBrace
         if start.Y < end.Y || (start.Y == end.Y && start.X < end.X) {
           end = end.Move(1, h.Buf)
         } else {
-              start = start.Move(1, h.Buf)
+          start = start.Move(1, h.Buf)
+          isEndAtLeft = true
         }
       }
-
-      // Reset and set selection explicitly from start to end
-      h.Cursor.SetSelectionStart(start)
-      h.Cursor.SetSelectionEnd(end)
-      h.Cursor.GotoLoc(end)
-
     } else {
-      //     h.Cursor.GotoLoc(matchingBrace.Move(1, h.Buf))
-      h.Cursor.GotoLoc(matchingBrace)
+      end = matchingBrace
+      if start.Y < end.Y || (start.Y == end.Y && start.X < end.X) {
+        end = end.Move(1, h.Buf)
+      } else {
+        start = start.Move(1, h.Buf)
+        isEndAtLeft = true
+      }
     }
+
+    // Reset and set selection explicitly from start to end
+    if isEndAtLeft {
+        h.Cursor.SetSelectionStart(end)
+        h.Cursor.SetSelectionEnd(start)
+        h.Cursor.GotoLoc(end)
+    } else {
+        h.Cursor.SetSelectionStart(start)
+        h.Cursor.SetSelectionEnd(end)
+        h.Cursor.GotoLoc(start)
+    }
+
     h.Relocate()
     return true
   }
