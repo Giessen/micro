@@ -47,3 +47,10 @@ rules:
         start: "`"
         end: "`"
         rules: []
+
+    - comment:
+        start: "<!\\-\\-"
+        end: "\\-\\->"
+        color: "brightblue"
+        rules:
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"
