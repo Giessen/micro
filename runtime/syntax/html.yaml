@@ -65,6 +65,6 @@ rules:
         start: "<!\\-\\-"
         end: "\\-\\->"
         rules:
-          - todo: "(FIXME|NOTE|TODO):?"
+          - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"
           # While technically not a "true" error, these are recommended to not be used inside a comment
           - error: "(\\-\\-|>)"

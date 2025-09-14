@@ -57,13 +57,13 @@ rules:
         start: "#"
         end: "$"
         rules:
-            - todo: "(TODO|XXX|FIXME):?"
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"
 
     - comment.bright:
         start: "##"
         end: "$"
         rules:
-            - todo: "(TODO|XXX|FIXME):?"
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"
 
     - constant:
         start: "<<-?'?EOT'?"

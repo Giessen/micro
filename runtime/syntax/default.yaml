@@ -8,3 +8,4 @@ rules:
     - special: "[[:alnum:].%_+-]+@[[:alnum:].-]+"
     # URLs
     - identifier: "(https?|ftp|ssh)://\\S*[^])>\\s,.]"
+

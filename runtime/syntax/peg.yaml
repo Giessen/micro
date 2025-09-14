@@ -11,6 +11,6 @@ rules:
     - special: "\\[[^]]*\\]"
     - constant.string: "\"(\\\\.|[^\"])*\"|'(\\\\.|[^'])*'"
     - comment: "(^|[[:space:]])\\-\\-.*$"
-    - todo: "TODO:?"
+    - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"
     - indent-char.whitespace: "[[:space:]]+$"
     - indent-char: "	+ +| +	+"

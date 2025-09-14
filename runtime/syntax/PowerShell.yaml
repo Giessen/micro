@@ -108,14 +108,14 @@ rules:
         start: "#"
         end: "$"
         rules:
-            - todo: "(TODO|XXX|FIXME|BUG):?"
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"
 
     # Block Comment
     - comment:
         start: "<#"
         end: "#>"
         rules:
-            - todo: "(TODO|XXX|FIXME|BUG):?"
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"
 
     # Embedded C#
     - default:
@@ -125,4 +125,4 @@ rules:
             - include: "csharp"
 
     # Todo
-    - todo: "(TODO|XXX|FIXME|BUG):?"
+    - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"

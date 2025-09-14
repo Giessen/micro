@@ -25,10 +25,10 @@ rules:
         start: "\\("
         end: "\\)"
         rules:
-            - todo: "(TODO|NOTE|XXX|FIXME):?"
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"
 
     - comment:
         start: "\\\\"
         end: "$"
         rules:
-            - todo: "(TODO|NOTE|XXX|FIXME):?"
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"

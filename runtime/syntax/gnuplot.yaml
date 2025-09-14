@@ -12,4 +12,4 @@ rules:
         start: "#"
         end: "$"
         rules:
-            - todo: "TODO:?"
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"

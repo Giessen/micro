@@ -74,7 +74,7 @@ rules:
         start: "\\-\\-\\[\\["
         end: "\\]\\]"
         rules:
-            - todo: "(TODO|NOTE|FIXME):?"
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"
 
 # support long brackets, same as with multiline strings
 
@@ -82,25 +82,25 @@ rules:
         start: "\\-\\-\\[=\\["
         end: "\\]=\\]"
         rules:
-            - todo: "(TODO|NOTE|FIXME):?"
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"
 
     - comment.block:
         start: "\\-\\-\\[==\\["
         end: "\\]==\\]"
         rules:
-            - todo: "(TODO|NOTE|FIXME):?"
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"
 
     - comment.block:
         start: "\\-\\-\\[===\\["
         end: "\\]===\\]"
         rules:
-            - todo: "(TODO|NOTE|FIXME):?"
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"
 
     - comment.block:
         start: "\\-\\-\\[====+\\["
         end: "\\]====+\\]"
         rules:
-            - todo: "(TODO|NOTE|FIXME):?"
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"
 
 # this has to go after block comment or block comment does not work
 
@@ -108,4 +108,4 @@ rules:
         start: "\\-\\-"
         end: "$"
         rules:
-            - todo: "(TODO|NOTE|FIXME):?"
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"

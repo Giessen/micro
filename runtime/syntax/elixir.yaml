@@ -26,5 +26,5 @@ rules:
 
     - identifier.macro: "\\b(__CALLER__|__DIR__|__ENV__|__MODULE__|__aliases__|__block__|defmacro)\\b"
 
-    - todo: "(XXX|TODO|FIXME|\\?\\?\\?)"
+    - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE|\\?\\?\\?)"
     - preproc.shebang: "\\W*#!.+?( |$)"

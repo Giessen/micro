@@ -76,24 +76,24 @@ rules:
         start: ////
         end: $a
         rules:
-            - todo: (TODO|XXX|FIXME)
+            - todo: (TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE)
 
     - comment.line:
         start: //
         end: $
         rules:
-            - todo: (TODO|XXX|FIXME)
+            - todo: (TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE)
 
     # ML-like block comment
     - comment.block:
         start: \(\*
         end: \*\)
         rules:
-            - todo: (TODO|XXX|FIXME)
+            - todo: (TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE)
 
     # C-like block comment
     - comment.block:
         start: /\*
         end: \*\/
         rules:
-            - todo: (TODO|XXX|FIXME)
+            - todo: (TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE)

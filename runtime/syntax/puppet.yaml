@@ -18,5 +18,5 @@ rules:
     - constant.string: "'([^']|(\\\\'))*'|%[qw]\\{[^}]*\\}|%[qw]\\([^)]*\\)|%[qw]<[^>]*>|%[qw]\\[[^]]*\\]|%[qw]\\$[^$]*\\$|%[qw]\\^[^^]*\\^|%[qw]![^!]*!"
     - comment: "#[^{].*$|#$"
     - comment.bright: "##[^{].*$|##$"
-    - todo: "(XXX|TODO|FIXME|\\?\\?\\?)"
+    - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE|\\?\\?\\?)"
     - indent-char.whitespace: "[[:space:]]+$"

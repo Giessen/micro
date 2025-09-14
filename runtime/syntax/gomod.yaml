@@ -26,6 +26,6 @@ rules:
         start: "//"
         end: "$"
         rules:
-            - todo: "(indirect):?"
+            - todo: "(indirect|TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"
 
 # (^|[ \\t])+ means after start of string or space or tab character

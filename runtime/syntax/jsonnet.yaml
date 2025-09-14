@@ -82,11 +82,11 @@ rules:
         start: "/\\*"
         end: "\\*/"
         rules:
-            - todo: "(TODO|XXX|FIXME):?"
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"
 
     # single-line comment
     - comment:
         start: "#|(//)"
         end: "$"
         rules:
-            - todo: "(TODO|XXX|FIXME):?"
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"

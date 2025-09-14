@@ -40,4 +40,4 @@ rules:
     - constant: "^\\*.*$"
     - indent-char.whitespace: "[[:space:]]+$"
     - indent-char: "	+ +| +	+"
-    - todo: "TODO:?"
+    - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"

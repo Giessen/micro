@@ -89,14 +89,14 @@ rules:
         start: "/\\*"
         end: "\\*/"
         rules:
-            - todo: "(TODO|XXX|FIXME):?"
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"
 
     # Doc Block Comment
     - comment.block:
         start: "/\\*\\*"
         end: "\\*/"
         rules:
-            - todo: "(TODO|XXX|FIXME):?"
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"
 
     # Todo
-    - todo: "(TODO|XXX|FIXME):?"
+    - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"

@@ -24,4 +24,4 @@ rules:
         end: "\\]\\#"
         rules: []
 
-    - todo: "(TODO|FIXME|XXX):?"
+    - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"

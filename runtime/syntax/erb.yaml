@@ -39,4 +39,4 @@ rules:
         end: "^EOT"
         rules: []
 
-    - todo: "(XXX|TODO|FIXME|\\?\\?\\?)"
+    - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE|\\?\\?\\?)"

@@ -347,13 +347,13 @@ And here are some example regions for Go:
     start: "//"
     end: "$"
     rules:
-        - todo: "(TODO|XXX|FIXME):?"
+        - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"
 
 - comment:
     start: "/\\*"
     end: "\\*/"
     rules:
-        - todo: "(TODO|XXX|FIXME):?"
+        - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE):?"
 ```
 
 Notice how the regions may contain rules inside of them. Any inner rules that

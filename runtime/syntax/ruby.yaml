@@ -9,12 +9,12 @@ rules:
         start: "##"
         end: "$"
         rules:
-            - todo: "(XXX|TODO|FIXME|BUG|\\?\\?\\?)"
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE|\\?\\?\\?)"
     - comment:
         start: "#"
         end: "$"
         rules:
-            - todo: "(XXX|TODO|FIXME|BUG|\\?\\?\\?)"
+            - todo: "(TODO|XXX|FIXME|WONTFIX|HACK|BUG|NOTE|DONE|\\?\\?\\?)"
 
     - statement: "\\b(BEGIN|END|alias|and|begin|break|case|class|def|defined\\?|do|else|elsif|end|ensure|for|if|in|module|next|nil|not|or|private|protected|public|redo|rescue|retry|return|self|super|then|undef|unless|until|when|while|yield)\\b"
     - constant: "(\\$|@|@@)?\\b[A-Z]+[0-9A-Z_a-z]*"
