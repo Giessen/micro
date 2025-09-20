@@ -970,10 +970,28 @@ func (h *BufPane) SaveAs() bool {
 	return h.SaveAsCB("SaveAs", nil)
 }
 
+//@ Added. get time in form of 0w:0d:0h:0m:0s
+func formatDuration(d time.Duration) string {
+	totalSeconds := int(d.Seconds())
+	
+	weeks := totalSeconds / (7 * 24 * 3600)
+	totalSeconds %= (7 * 24 * 3600)
+	days := totalSeconds / (24 * 3600)
+	totalSeconds %= (24 * 3600)
+	hours := totalSeconds / 3600
+	totalSeconds %= 3600
+	minutes := totalSeconds / 60
+	seconds := totalSeconds % 60
+
+	return fmt.Sprintf("%dw:%dd:%dh:%dm:%ds", weeks, days, hours, minutes, seconds)
+}
+
 // This function saves the buffer to `filename` and changes the buffer's path and name
 // to `filename` if the save is successful
 // The callback is only called if the save was successful
 func (h *BufPane) saveBufToFile(filename string, action string, callback func()) bool {
+    elapsed := time.Since(h.Buf.OpenedAt) //@ Added
+    tictoc := formatDuration(elapsed) //@ Added
 	err := h.Buf.SaveAs(filename)
 	if err != nil {
 		if errors.Is(err, fs.ErrPermission) {
@@ -984,7 +1002,7 @@ func (h *BufPane) saveBufToFile(filename string, action string, callback func())
 				} else {
 					h.Buf.Path = filename
 					h.Buf.SetName(filename)
-					InfoBar.Message("Saved") //@ "Saved " + filename
+					InfoBar.Message("Saved [" + tictoc + "]") //@ "Saved " + filename
 					if callback != nil {
 						callback()
 					}
@@ -1010,7 +1028,7 @@ func (h *BufPane) saveBufToFile(filename string, action string, callback func())
 	} else {
 		h.Buf.Path = filename
 		h.Buf.SetName(filename)
-		InfoBar.Message("Saved") //@ "Saved " + filename
+		InfoBar.Message("Saved [" + tictoc + "]") //@ "Saved " + filename
 		if callback != nil {
 			callback()
 		}

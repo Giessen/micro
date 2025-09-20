@@ -211,6 +211,9 @@ type Buffer struct {
 	LastSearchRegex bool
 	// HighlightSearch enables highlighting all instances of the last successful search
 	HighlightSearch bool
+
+	//@ Added. buffer time stamp
+	OpenedAt time.Time
 }
 
 // NewBufferFromFileAtLoc opens a new buffer with a given cursor location
@@ -301,7 +304,10 @@ func NewBuffer(r io.Reader, size int64, path string, startcursor Loc, btype BufT
 		absPath = path
 	}
 
-	b := new(Buffer)
+//	b := new(Buffer)
+    b := &Buffer{ //@ Added
+        OpenedAt: time.Now(),
+    }
 
 	found := false
 	if len(path) > 0 {
