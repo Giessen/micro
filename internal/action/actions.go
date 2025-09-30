@@ -990,8 +990,9 @@ func formatDuration(d time.Duration) string {
 // to `filename` if the save is successful
 // The callback is only called if the save was successful
 func (h *BufPane) saveBufToFile(filename string, action string, callback func()) bool {
-    elapsed := time.Since(h.Buf.OpenedAt) //@ Added
-    tictoc := formatDuration(elapsed) //@ Added
+//    elapsed := time.Since(h.Buf.OpenedAt) //@ Added
+//    tictoc := formatDuration(elapsed) //@ Added
+  tictoc := time.Now().Format("2006.01.02 15:04:05") //@ Added. abs time
 	err := h.Buf.SaveAs(filename)
 	if err != nil {
 		if errors.Is(err, fs.ErrPermission) {
